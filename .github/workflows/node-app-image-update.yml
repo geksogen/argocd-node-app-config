@@ -7,16 +7,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4.3.3
+    - uses: actions/checkout@v3
 
     - name: Update Image Version
       id: imgupd
       uses: mikefarah/yq@master
       with:
+
         cmd: yq eval '.spec.template.spec.containers[0].image = "${{ github.event.client_payload.image }}"' -i node-app/deployment.yaml
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_user_email: dchorch@gmail.com
-        commit_user_name: geksogen
-        commit_message: Apply automatic changes
+      - uses: stefanzweifel/git-auto-commit-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          commit_message: Update generated contributors markdown
+          branch: master
