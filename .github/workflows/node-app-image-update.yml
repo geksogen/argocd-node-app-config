@@ -20,5 +20,7 @@ jobs:
         commit_user_email: dchorch@gmail.com
         commit_user_name: geksogen
         commit_message: Apply automatic changes
+    - name: Set Git Origin URL
+      run: git remote set-url origin https://$TOKEN:x-oauth-basic@github.com/stefanzweifel/laravel-github-actions-demo
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
+        TOKEN: ${{ secrets.PAT }}
