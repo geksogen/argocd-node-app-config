@@ -8,13 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Checkout branch
-      run: git switch "${GITHUB_REF:11}"
-
-    - name: Set git remote URL
-      run: git remote set-url origin https://$TOKEN:x-oauth-basic@github.com/$GITHUB_REPOSITORY
-      env:
-        TOKEN: ${{ secrets.PAT }}
 
     - name: Update Image Version
       id: imgupd
@@ -22,10 +15,8 @@ jobs:
       with:
         cmd: yq eval '.spec.template.spec.containers[0].image = "${{ github.event.client_payload.image }}"' -i node-app/deployment.yaml
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: stefanzweifel/git-auto-commit-action@v3
       with:
         commit_user_email: dchorch@gmail.com
         commit_user_name: geksogen
         commit_message: Apply automatic changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
