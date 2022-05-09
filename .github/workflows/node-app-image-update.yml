@@ -20,3 +20,5 @@ jobs:
         commit_author_email: dchorch@gmail.com
         commit_author_name: geksogen
         commit_message: Apply automatic changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
