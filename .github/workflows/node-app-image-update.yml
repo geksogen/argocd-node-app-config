@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
     - name: Update Image Version
       id: imgupd
       uses: mikefarah/yq@master
