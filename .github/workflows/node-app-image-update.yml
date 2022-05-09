@@ -15,9 +15,8 @@ jobs:
       with:
         cmd: yq eval '.spec.template.spec.containers[0].image = "${{ github.event.client_payload.image }}"' -i node-app/deployment.yaml
 
-    - uses: stefanzweifel/git-auto-commit-action@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        commit_message: Update generated contributors markdown
-        branch: master
+        github_token: ${{ secrets.PAT }}
+        branch: ${{ github.ref }}
