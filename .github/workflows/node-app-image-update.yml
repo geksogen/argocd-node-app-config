@@ -8,6 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Checkout branch
+      run: git switch "${GITHUB_REF:11}"
+
+    - name: Set git remote URL
+      run: git remote set-url origin https://$TOKEN:x-oauth-basic@github.com/$GITHUB_REPOSITORY
+      env:
+        TOKEN: ${{ secrets.PAT }}
 
     - name: Update Image Version
       id: imgupd
@@ -20,7 +27,5 @@ jobs:
         commit_user_email: dchorch@gmail.com
         commit_user_name: geksogen
         commit_message: Apply automatic changes
-    - name: Set Git Origin URL
-      run: git remote set-url origin https://$TOKEN:x-oauth-basic@github.com/stefanzweifel/laravel-github-actions-demo
       env:
-        TOKEN: ${{ secrets.PAT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
