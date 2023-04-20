@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: node-app
-          image: geksogen/examplenode:45
+          image: geksogen/examplenode:46
           ports:
             - containerPort: 3000
